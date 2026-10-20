@@ -1,0 +1,35 @@
+﻿# Backup files — keep locally, do not publish
+*.backup*
+*.bak
+*.bak_*
+*.before-*
+*.before_*
+*.pre-*
+*_before_*
+app.js.repaired-test*
+backup_before_*/
+
+# Temporary checks and prototypes
+carousel-prototype.html
+syntax-check.html
+chrome-check-errors.txt
+fix-current-chart.ps1
+fix-current-init.ps1
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Backup files with .bak- suffix
+*.bak-*

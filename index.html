@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GREAT DYNASTIES — архив статистики фэнтези-лиги">
+  <title>GREAT DYNASTIES — Statistical Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">
+      <img class="brand-mark" src="assets/emblems/GREAT DYNASTY для сайта.png" alt="Эмблема GREAT DYNASTIES">
+      <span>GREAT DYNASTIES<small>STATISTICAL HUB</small></span>
+    </a>
+    <span class="archive-label">АРХИВ · С 2016 ГОДА</span>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">ИСТОРИЯ ЛИГИ</p>
+        <h1>Каждый сезон<br><span>оставляет наследие.</span></h1>
+        <p class="intro">Результаты, история франшиз и цифры, из которых складываются династии.</p>
+        <div class="hero-stats">
+          <div><strong>11</strong><span>СЕЗОНОВ</span></div>
+          <div><strong>98</strong><span>ФРАНШИЗ</span></div>
+        </div>
+      </div>
+      <img class="hero-emblem" src="assets/emblems/GREAT DYNASTY для сайта.png" alt="Эмблема лиги GREAT DYNASTIES">
+    </section>
+
+        <nav class="tabs" aria-label="Разделы сайта">
+      <button class="tab" data-tab="statistics">Статистика</button>
+      <button class="tab active" data-tab="current">Текущий сезон <span class="soon">2026</span></button>
+      <button class="tab" data-tab="champions">Чемпионы</button>
+      <button class="tab" data-tab="history">История</button>
+      <button class="tab" data-tab="payments">Оплата движка и выплаты</button>
+      <button class="tab" data-tab="support">Поддержка</button>
+    </nav>
+
+  <div id="history-layout" class="division-layout">
+    <aside class="division-rail division-rail-left" aria-label="Эмблемы дивизионов слева">
+      <div class="division-emblem"><img src="assets/emblems/74575_division00_logo.png" alt="Эмблема дивизиона 1" loading="lazy"></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division01_logo.png" alt="Эмблема дивизиона 2" loading="lazy"></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division02_logo.png" alt="Эмблема дивизиона 3" loading="lazy"></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division03_logo.png" alt="Эмблема дивизиона 4" loading="lazy"></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division04_logo.png" alt="Эмблема дивизиона 5" loading="lazy"></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division05_logo.jpg" alt="Эмблема дивизиона 6" loading="lazy"></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division06_logo.png" alt="Эмблема дивизиона 7" loading="lazy"></div>
+    </aside>
+    <section id="history-panel" hidden>
+      <div class="section-heading">
+        <div><p class="eyebrow">2016 — 2025</p><h2>История франшиз</h2></div>
+        <span id="status" class="status">Загрузка архива…</span>
+      </div>
+
+      <div class="control-panel">
+        <label>ДИВИЗИОН
+          <select id="division-select">
+            <option value="">Все дивизионы</option>
+          </select>
+        </label>
+        <label>ОСНОВНАЯ ФРАНШИЗА
+          <select id="main-franchise"><option value="">Все франшизы</option></select>
+        </label>
+        <label>ДИВИЗИОН СРАВНЕНИЯ
+          <select id="compare-division-select">
+            <option value="">Все дивизионы</option>
+          </select>
+        </label>
+        <label>СРАВНИТЬ С
+          <select id="compare-franchise"><option value="">Без сравнения</option></select>
+        </label>
+
+
+      </div>
+
+      <section class="chart-card">
+        <div class="chart-title">
+          <div><p class="eyebrow">ДИНАМИКА РЕЗУЛЬТАТОВ</p><h3>Путь франшизы</h3></div>
+          <p class="chart-note">Выбери основную франшизу и соперника для сравнения.</p>
+        </div>
+        <div class="metric-switch" role="group" aria-label="Показатели графика">
+          <button class="metric active" data-metric="all" aria-pressed="true">Все показатели</button>
+          <button class="metric active" data-metric="Wins" aria-pressed="true">W-L · Победы</button>
+          <button class="metric active" data-metric="PF" aria-pressed="true">PF · Очки</button>
+          <button class="metric active" data-metric="Eff" aria-pressed="true">EFF · Эффективность</button>
+        </div>
+        <div class="chart-wrap"><canvas id="history-chart" aria-label="График исторических результатов"></canvas></div>
+        <p class="legend-hint">Основная франшиза выделена ярко, остальные линии приглушены.</p>
+      </section>
+
+      <section class="table-card">
+        <div class="table-heading">
+          <div><p class="eyebrow">РЕЗУЛЬТАТЫ СЕЗОНОВ</p><h3 id="table-title">Все результаты</h3></div>
+          <span id="table-count" class="count"></span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>ГОД</th><th>ФРАНШИЗА</th><th>ВЛАДЕЛЕЦ</th><th>ДИВИЗИОН</th>
+              <th>W-L-T</th><th>PF</th><th>PP</th><th>EFF</th><th>ID</th>
+            </tr></thead>
+            <tbody id="standings-body"><tr><td colspan="9">Загрузка…</td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <button id="prev-page" class="page-button">← Назад</button>
+          <span id="page-label">Страница 1</span>
+          <button id="next-page" class="page-button">Далее →</button>
+        </div>
+      </section>
+    </section>
+    <aside class="division-rail division-rail-right" aria-label="Эмблемы дивизионов справа">
+      <div class="division-emblem"><img src="assets/emblems/74575_division00_logo.png" alt="Эмблема DIVISION GREAT" loading="lazy"><span class="division-emblem-label">DIVISION GREAT</span></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division01_logo.png" alt="Эмблема DIVISION NEXT GEN" loading="lazy"><span class="division-emblem-label">DIVISION NEXT GEN</span></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division02_logo.png" alt="Эмблема DIVISION 3rd & LONG" loading="lazy"><span class="division-emblem-label">DIVISION 3rd &amp; LONG</span></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division03_logo.png" alt="Эмблема DIVISION FOUR SEASONS" loading="lazy"><span class="division-emblem-label">DIVISION FOUR SEASONS</span></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division04_logo.png" alt="Эмблема DIVISION RUSSELL'5" loading="lazy"><span class="division-emblem-label">DIVISION RUSSELL'5</span></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division05_logo.jpg" alt="Эмблема DIVISION LEG VI" loading="lazy"><span class="division-emblem-label">DIVISION LEG VI</span></div>
+      <div class="division-emblem"><img src="assets/emblems/74575_division06_logo.png" alt="Эмблема DIVISION FRONT SEVEN" loading="lazy"><span class="division-emblem-label">DIVISION FRONT SEVEN</span></div>
+    </aside>
+  </div>
+
+    <section id="current-panel">
+      <div class="section-heading current-heading">
+        <div>
+          <p class="eyebrow">СЕЗОН 2026 · REGULAR SEASON</p>
+          <h2>Текущий сезон</h2>
+          <p class="current-intro">Путь каждой франшизы — от первой недели до решающего матча регулярного сезона.</p>
+        </div>
+        <div class="current-status">
+          <span class="current-status-dot"></span>
+          <span id="current-data-status">Ожидание данных MFL</span>
+        </div>
+      </div>
+
+      <div class="current-controls">
+        <label>
+          <span>ДИВИЗИОН</span>
+          <select id="current-division-select">
+            <option value="">Все дивизионы</option>
+          </select>
+        </label>
+        <label>
+          <span>ОСНОВНАЯ ФРАНШИЗА</span>
+          <select id="current-main-franchise">
+            <option value="">Выберите франшизу</option>
+          </select>
+        </label>
+        <label>
+          <span>ДИВИЗИОН СРАВНЕНИЯ</span>
+          <select id="current-compare-division-select">
+            <option value="">Все дивизионы</option>
+          </select>
+        </label>
+        <label>
+          <span>СРАВНЕНИЕ</span>
+          <select id="current-compare-franchise">
+            <option value="">Без сравнения</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="current-chart-card">
+        <div class="current-card-heading">
+          <div>
+            <p class="eyebrow">WEEK BY WEEK</p>
+            <h3>Динамика сезона</h3>
+          </div>
+          <span class="current-week-range">НЕДЕЛИ 1–14</span>
+        </div>
+
+        <div class="current-legend">
+          <span><i class="current-legend-wl"></i>W-L · Победы и поражения</span>
+          <span><i class="current-legend-pf"></i>PF · Набранные очки</span>
+        </div>
+
+        <div class="current-chart-wrap">
+          <canvas id="current-chart" aria-label="График результатов франшиз в сезоне 2026"></canvas>
+          <div id="current-chart-empty" class="current-chart-empty">
+            <span class="current-empty-symbol">↗</span>
+            <h4>Готовы следить за сезоном</h4>
+            <p>Здесь появится динамика W-L и PF по неделям после подключения данных MFL.</p>
+          </div>
+        </div>
+        <p class="current-chart-note">Регулярный сезон · недели 1–14 · плей-офф не включён</p>
+      </div>
+
+      <div class="current-roster-card">
+        <div class="current-card-heading">
+          <div>
+            <p class="eyebrow">FRANCHISE ROSTER</p>
+            <div class="current-franchise-title-row">
+              <img id="current-franchise-emblem" class="current-franchise-emblem" alt="" hidden>
+              <h3 id="current-roster-title">Состав франшизы</h3>
+            </div>
+          </div>
+          <span id="current-roster-count" class="current-roster-count">— игроков</span>
+        </div>
+
+        <div id="current-franchise-summary" class="current-franchise-summary">
+          Выберите основную франшизу, чтобы увидеть её статистику и полный состав.
+        </div>
+
+        <div class="current-roster-groups">
+          <section class="current-roster-group">
+            <div class="current-roster-group-heading">
+              <h4>ROSTER</h4>
+              <span>Основной состав</span>
+              <b id="current-roster-count-roster">0</b>
+            </div>
+            <div id="current-roster-roster" class="current-player-list">
+              <p class="current-roster-placeholder">Данные появятся после загрузки состава.</p>
+            </div>
+          </section>
+
+          <div class="current-roster-side">
+<section class="current-roster-group">
+            <div class="current-roster-group-heading">
+              <h4>INJURED RESERVE</h4>
+              <span>Резерв травмированных</span>
+              <b id="current-roster-count-ir">0</b>
+            </div>
+            <div id="current-roster-ir" class="current-player-list">
+              <p class="current-roster-placeholder">Нет загруженных данных.</p>
+            </div>
+          </section>
+
+          <section class="current-roster-group">
+            <div class="current-roster-group-heading">
+              <h4>TAXI SQUAD</h4>
+              <span>Такси-состав</span>
+              <b id="current-roster-count-taxi">0</b>
+            </div>
+            <div id="current-roster-taxi" class="current-player-list">
+              <p class="current-roster-placeholder">Нет загруженных данных.</p>
+            </div>
+          </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>GREAT DYNASTIES · STATISTICAL HUB</span>
+      <span>ЦИФРЫ СОЗДАЮТ ЛЕГЕНДЫ</span>
+    </footer>
+      <section id="statistics-panel" hidden></section>
+    <section id="champions-panel" hidden></section>
+    <section id="payments-panel" hidden></section>
+    <section id="support-panel" hidden></section>
+</main>
+</body>
+</html>
